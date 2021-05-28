@@ -9,7 +9,7 @@ module.exports = {
     libraryTarget: "umd"
   },
   resolve: {
-    extensions: [".ts", ".tsx"]
+    extensions: [".ts", ".tsx", ".scss"]
   },
   module: {
     rules: [
@@ -23,7 +23,16 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        exclude: /\.module.(s(a|c)ss)$/,
+        use: [
+          "style-loader",
+          // "@teamsupercell/typings-for-css-modules-loader",
+          {
+            loader: "css-loader",
+            options: { modules: true }
+          },
+          "sass-loader"
+        ],
         include: path.resolve(__dirname, "./src")
       }
     ]
